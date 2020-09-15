@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:pdp_wisatakuliner/modals/api.dart';
 import 'package:pdp_wisatakuliner/podo/tampil_komentar.dart';
 import 'package:pdp_wisatakuliner/screens/admin/fav_details.dart';
+import 'package:pdp_wisatakuliner/screens/admin/home_admin.dart';
+import 'package:pdp_wisatakuliner/screens/home.dart';
 import 'package:pdp_wisatakuliner/util/komentar_tampil.dart';
 import 'package:pdp_wisatakuliner/util/const.dart';
 import 'package:pdp_wisatakuliner/widgets/badge.dart';
@@ -94,8 +96,8 @@ class _ProductDetailsState extends State<ProductDetails> {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (BuildContext context) {
-                  return ProductFavDetails(
-                      idMenu: "${widget.idMenu}",
+                  return ProductDetails(
+                      id: "${widget.id}",
                       jmlRating: jmlRating.toString(),
                       jmlMenu: "${widget.jmlMenu}",
                       jmlReview: "${widget.jmlReview}",
@@ -141,6 +143,20 @@ class _ProductDetailsState extends State<ProductDetails> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: Icon(
+            Icons.keyboard_backspace,
+          ),
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return HomeAdmin();
+                },
+              ),
+            );
+          },
+        ),
         centerTitle: true,
         title: Text(
           "Detail Makanan",

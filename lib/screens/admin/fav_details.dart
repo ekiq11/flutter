@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:pdp_wisatakuliner/modals/api.dart';
 import 'package:pdp_wisatakuliner/podo/tampil_fav_komentar.dart';
+import 'package:pdp_wisatakuliner/screens/admin/home_admin.dart';
 import 'package:pdp_wisatakuliner/util/komentar_tampil.dart';
 import 'package:pdp_wisatakuliner/util/const.dart';
 import 'package:pdp_wisatakuliner/widgets/badge.dart';
@@ -164,7 +165,15 @@ class _ProductFavDetailsState extends State<ProductFavDetails> {
           icon: Icon(
             Icons.keyboard_backspace,
           ),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return HomeAdmin();
+                },
+              ),
+            );
+          },
         ),
         centerTitle: true,
         title: Text(

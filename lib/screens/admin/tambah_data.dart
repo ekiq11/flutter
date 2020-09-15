@@ -1,5 +1,6 @@
 import 'dart:convert';
-
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:pdp_wisatakuliner/modals/api.dart';
@@ -12,6 +13,7 @@ class TambahData extends StatefulWidget {
 class _TambahDataState extends State<TambahData> {
   String namaMenu, deskripsi, harga;
   final _key = new GlobalKey<FormState>();
+  File _imageFile;
   bool _scurePassword = true;
   showHide() {
     setState(() {
@@ -90,8 +92,28 @@ class _TambahDataState extends State<TambahData> {
     }
   }
 
+  pilihGallery() async {
+    var image = await ImagePicker.pickImage(
+        source: ImageSource.gallery, maxHeight: 1920.0, maxWidth: 1080.0);
+    setState(() {
+      _imageFile = image;
+    });
+  }
+
+  pilihCamera() async {
+    var image = await ImagePicker.pickImage(
+        source: ImageSource.camera, maxHeight: 1920.0, maxWidth: 1080.0);
+    setState(() {
+      _imageFile = image;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    var placeholder = Container(
+        width: double.infinity,
+        height: 150.0,
+        child: Image.asset('assets/img.png'));
     return Padding(
       padding: EdgeInsets.fromLTRB(20.0, 0, 20, 0),
       child: ListView(
@@ -116,6 +138,17 @@ class _TambahDataState extends State<TambahData> {
           Card(
             elevation: 3.0,
             child: Container(),
+          ),
+          Container(
+            width: double.infinity,
+            height: 150.0,
+            child: InkWell(
+                onTap: () {
+                  pilihCamera();
+                },
+                child: _imageFile == null
+                    ? placeholder
+                    : Image.file(_imageFile, fit: BoxFit.fill)),
           ),
           SizedBox(height: 30.0),
           Card(

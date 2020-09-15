@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:pdp_wisatakuliner/screens/admin/main_screen_admin.dart';
 import 'package:pdp_wisatakuliner/screens/join.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'main_screen.dart';
@@ -10,17 +11,25 @@ class Walkthrough extends StatefulWidget {
 }
 
 class _WalkthroughState extends State<Walkthrough> {
-  var value;
+  String level;
 
   getPref() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
-      value = preferences.getInt("value");
-      if (value == 1) {
+      level = preferences.getString("level");
+      if (level == '1') {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (BuildContext context) {
               return MainScreen();
+            },
+          ),
+        );
+      } else if (level == '2') {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (BuildContext context) {
+              return MainScreenAdmin();
             },
           ),
         );
