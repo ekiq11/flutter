@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pdp_wisatakuliner/screens/admin/favorite_screen.dart';
 import 'package:pdp_wisatakuliner/screens/admin/home_admin.dart';
+import 'package:pdp_wisatakuliner/screens/admin/list_menu.dart';
 import 'package:pdp_wisatakuliner/screens/admin/tambah_data.dart';
-import 'package:pdp_wisatakuliner/screens/favorite_screen.dart';
 import 'package:pdp_wisatakuliner/screens/maps.dart';
 import 'package:pdp_wisatakuliner/screens/notifications.dart';
 import 'package:pdp_wisatakuliner/screens/profile.dart';
@@ -56,7 +55,7 @@ class _MainScreenAdminState extends State<MainScreenAdmin> {
           onPageChanged: onPageChanged,
           children: <Widget>[
             HomeAdmin(),
-            DaftarMenu(),
+            ListMenu(),
             TambahData(),
             MapsTest(),
             Profile(),

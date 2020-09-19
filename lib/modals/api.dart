@@ -15,4 +15,6 @@ class BaseURL {
       "http://belajar.junioracademy.id/api/kategori.php?kategori=3";
   static String kategoriKhas =
       "http://belajar.junioracademy.id/api/kategori.php?kategori=4";
+  static String tambahMenu =
+      "http://belajar.junioracademy.id/api/tambah_menu.php";
 }
