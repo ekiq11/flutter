@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:pdp_wisatakuliner/modals/api.dart';
 import 'package:pdp_wisatakuliner/screens/admin/tambah_lokasi.dart';
+import 'package:async/async.dart';
+import 'package:path/path.dart' as path;
 
 class TambahData extends StatefulWidget {
   @override
@@ -30,70 +32,29 @@ class _TambahDataState extends State<TambahData> {
   }
 
   tambahmenu() async {
-    final response = await http.post(BaseURL.tambahMenu, body: {
-      "namaMenu": namaMenu,
-      "deskripsi": deskripsi,
-      "harga": harga,
-      "img": img,
-      "idUser": idUser,
-      "idKuliner": idKuliner,
-      "idKategoriMenu": idKategoriMenu
-    });
-    final data = jsonDecode(response.body);
-    int value = data['value'];
-    String message = data['message'];
+    try {
+      var uri = Uri.parse(BaseURL.tambahMenu);
+      var stream =
+          http.ByteStream(DelegatingStream.typed(_imageFile.openRead()));
+      final request = http.MultipartRequest("POST", uri);
+      var length = await _imageFile.length();
+      request.fields['namaMenu'] = namaMenu;
+      request.fields['deskripsi'] = deskripsi;
+      request.fields['harga'] = harga;
+      request.files.add(http.MultipartFile("image", stream, length,
+          filename: path.basename(_imageFile.path)));
+      request.fields['idUser'] = idUser;
+      request.fields['idKuliner'] = idKuliner;
+      request.fields['idKategoriMenu'] = idKategoriMenu;
 
-    if (value == 1) {
-      setState(() {
-        // set up the button
-        Widget okButton = FlatButton(
-          child: Text("OK"),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        );
-
-        // set up the AlertDialog
-        AlertDialog alert = AlertDialog(
-          title: Text("Berhasil Daftar"),
-          content: Text("Terimakasih, Menu anda telah terdaftar."),
-          actions: [
-            okButton,
-          ],
-        );
-
-        // show the dialog
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return alert;
-          },
-        );
-      });
-    } else {
-      Widget okButton = FlatButton(
-        child: Text("OK"),
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
-      );
-
-      // set up the AlertDialog
-      AlertDialog alert = AlertDialog(
-        title: Text("Gagal"),
-        content: Text(message),
-        actions: [
-          okButton,
-        ],
-      );
-
-      // show the dialog
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return alert;
-        },
-      );
+      var response = await request.send();
+      if (response.statusCode > 2) {
+        print("Image Upload Berhasil");
+      } else {
+        print("Image gagal upload");
+      }
+    } catch (e) {
+      debugPrint("Error $e");
     }
   }
 
@@ -266,46 +227,6 @@ class _TambahDataState extends State<TambahData> {
                     borderRadius: BorderRadius.circular(5.0),
                   ),
                   hintText: "Harga",
-                  hintStyle: TextStyle(
-                    fontSize: 15.0,
-                    color: Colors.black,
-                  ),
-                ),
-                maxLines: 1,
-              ),
-            ),
-          ),
-          SizedBox(height: 10.0),
-          Card(
-            elevation: 3.0,
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(5.0),
-                ),
-              ),
-              child: TextField(
-                onChanged: (e) => img = e,
-                style: TextStyle(
-                  fontSize: 15.0,
-                  color: Colors.black,
-                ),
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.all(10.0),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                    borderSide: BorderSide(
-                      color: Colors.white,
-                    ),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.white,
-                    ),
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  hintText: "Link Gambar",
                   hintStyle: TextStyle(
                     fontSize: 15.0,
                     color: Colors.black,

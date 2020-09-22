@@ -31,7 +31,7 @@ class GridListMenu extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
                   child: Image.network(
-                    "$img",
+                    'http://belajar.junioracademy.id/upload/' + "$img",
                     fit: BoxFit.cover,
                   ),
                 ),
