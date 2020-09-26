@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pdp_wisatakuliner/podo/kategori_cepat_saji.dart';
 import 'package:pdp_wisatakuliner/podo/kategori_makanan_khas.dart';
-import 'package:pdp_wisatakuliner/screens/admin/categories_makanan_khas.dart';
 import 'package:pdp_wisatakuliner/screens/admin/categories_screen_kue.dart';
 import 'package:pdp_wisatakuliner/screens/admin/categories_screen_minuman.dart';
 import 'package:pdp_wisatakuliner/screens/admin/main_screen_admin.dart';
-import 'package:pdp_wisatakuliner/util/kategori_cepat_saji.dart';
 import 'package:pdp_wisatakuliner/util/kategori_makanan_khas.dart';
 import 'package:pdp_wisatakuliner/widgets/badge.dart';
 import 'package:pdp_wisatakuliner/widgets/grid_product.dart';
@@ -21,7 +18,6 @@ class _CategoriesMakananKhasState extends State<CategoriesMakananKhas> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     MakananKhasServices.getMakananKhas().then((khas) {

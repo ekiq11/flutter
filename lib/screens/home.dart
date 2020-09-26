@@ -20,7 +20,6 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     Services.getFoods().then((foods) {

@@ -15,7 +15,6 @@ class _FavoriteScreenState extends State<FavoriteScreen>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     String id = "";
 

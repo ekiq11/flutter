@@ -3,7 +3,7 @@ import 'package:pdp_wisatakuliner/util/kategori_search.dart';
 
 class SearchServices {
   static const String url =
-      'http://belajar.junioracademy.id/api/cari.php?keyword=';
+      'https://www.wisatakuapps.com/api/wisatakuApp/cari.php?keyword=';
   static Future<List<Search>> getSearch(String _searchControl) async {
     try {
       final response = await http.get(url + _searchControl);

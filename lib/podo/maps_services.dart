@@ -3,7 +3,7 @@ import 'package:pdp_wisatakuliner/util/mpas_list.dart';
 
 class MapsServices {
   static const String url =
-      'http://belajar.junioracademy.id/api/lihat_menu.php';
+      'https://www.wisatakuapps.com/api/wisatakuApp/lihat_menu.php';
   static Future<List<Maps>> getMaps() async {
     try {
       final response = await http.get(url);

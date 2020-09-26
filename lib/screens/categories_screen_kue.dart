@@ -20,7 +20,6 @@ class _CategoriesKueState extends State<CategoriesKue> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     KueServices.getKue().then((kue) {

@@ -1,12 +1,14 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:pdp_wisatakuliner/modals/api.dart';
+import 'package:pdp_wisatakuliner/podo/lokasi_services.dart';
 import 'package:pdp_wisatakuliner/screens/admin/tambah_lokasi.dart';
 import 'package:async/async.dart';
 import 'package:path/path.dart' as path;
+import 'package:pdp_wisatakuliner/util/lokasi.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class TambahData extends StatefulWidget {
   @override
@@ -14,6 +16,8 @@ class TambahData extends StatefulWidget {
 }
 
 class _TambahDataState extends State<TambahData> {
+  String teslokasi;
+
   String namaMenu, deskripsi, harga, img, idUser, idKuliner, idKategoriMenu;
   final _key = new GlobalKey<FormState>();
   File _imageFile;
@@ -31,8 +35,44 @@ class _TambahDataState extends State<TambahData> {
     }
   }
 
+  List<Lokasi> _lokasi;
+
+  @override
+  void initState() {
+    super.initState();
+    String id = "";
+    getPreferences() async {
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      setState(() {
+        id = preferences.getString("id");
+        LokasiServices.getLokasi(id).then((lokasi) {
+          setState(() {
+            _lokasi = lokasi;
+          });
+        });
+      });
+    }
+
+    setState(() {
+      getPreferences();
+    });
+  }
+
+  String id = "";
+
+  getPref() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      id = preferences.getString("id");
+    });
+  }
+
   tambahmenu() async {
     try {
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      setState(() {
+        id = preferences.getString("id");
+      });
       var uri = Uri.parse(BaseURL.tambahMenu);
       var stream =
           http.ByteStream(DelegatingStream.typed(_imageFile.openRead()));
@@ -43,7 +83,7 @@ class _TambahDataState extends State<TambahData> {
       request.fields['harga'] = harga;
       request.files.add(http.MultipartFile("image", stream, length,
           filename: path.basename(_imageFile.path)));
-      request.fields['idUser'] = idUser;
+      request.fields['idUser'] = preferences.getString("id");
       request.fields['idKuliner'] = idKuliner;
       request.fields['idKategoriMenu'] = idKategoriMenu;
 
@@ -240,80 +280,28 @@ class _TambahDataState extends State<TambahData> {
           Card(
             elevation: 3.0,
             child: Container(
+              height: 50.0,
+              padding: EdgeInsets.all(10.0),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(
                   Radius.circular(5.0),
                 ),
               ),
-              child: TextField(
-                onChanged: (e) => idUser = e,
-                style: TextStyle(
-                  fontSize: 15.0,
-                  color: Colors.black,
-                ),
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.all(10.0),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                    borderSide: BorderSide(
-                      color: Colors.white,
-                    ),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.white,
-                    ),
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  hintText: "id user",
-                  hintStyle: TextStyle(
-                    fontSize: 15.0,
-                    color: Colors.black,
-                  ),
-                ),
-                maxLines: 1,
-              ),
-            ),
-          ),
-          SizedBox(height: 10.0),
-          Card(
-            elevation: 3.0,
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(5.0),
-                ),
-              ),
-              child: TextField(
-                onChanged: (e) => idKuliner = e,
-                style: TextStyle(
-                  fontSize: 15.0,
-                  color: Colors.black,
-                ),
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.all(10.0),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                    borderSide: BorderSide(
-                      color: Colors.white,
-                    ),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.white,
-                    ),
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  hintText: "Lokasi Kuliner",
-                  hintStyle: TextStyle(
-                    fontSize: 15.0,
-                    color: Colors.black,
-                  ),
-                ),
-                maxLines: 1,
-              ),
+              child: DropdownButton(
+                  hint: Text("Pilih lokasi"),
+                  value: idKuliner,
+                  items: _lokasi.map((item) {
+                    return DropdownMenuItem(
+                      child: Text(item.namaTempat + " " + item.id),
+                      value: item.id,
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      idKuliner = value;
+                    });
+                  }),
             ),
           ),
           SizedBox(height: 10.0),

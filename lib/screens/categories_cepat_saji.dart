@@ -3,7 +3,7 @@ import 'package:pdp_wisatakuliner/podo/kategori_cepat_saji.dart';
 import 'package:pdp_wisatakuliner/screens/categories_makanan_khas.dart';
 import 'package:pdp_wisatakuliner/screens/categories_screen_kue.dart';
 import 'package:pdp_wisatakuliner/screens/categories_screen_minuman.dart';
-import 'package:pdp_wisatakuliner/screens/home.dart';
+
 import 'package:pdp_wisatakuliner/screens/main_screen.dart';
 import 'package:pdp_wisatakuliner/screens/notifications.dart';
 import 'package:pdp_wisatakuliner/util/kategori_cepat_saji.dart';
@@ -21,7 +21,6 @@ class _CategoriesCepatSajiState extends State<CategoriesCepatSaji> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     CepatSajiServices.getCepatSaji().then((cepatSaji) {

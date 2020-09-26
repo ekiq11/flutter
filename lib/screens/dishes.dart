@@ -15,7 +15,6 @@ class _DishesScreenState extends State<DishesScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     Services.getFoods().then((foods) {

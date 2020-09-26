@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pdp_wisatakuliner/screens/cart.dart';
+
 import 'package:pdp_wisatakuliner/screens/favorite_screen.dart';
 import 'package:pdp_wisatakuliner/screens/home.dart';
 import 'package:pdp_wisatakuliner/screens/maps.dart';

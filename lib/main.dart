@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pdp_wisatakuliner/providers/app_provider.dart';
-import 'package:pdp_wisatakuliner/screens/maps.dart';
 import 'package:pdp_wisatakuliner/screens/splash.dart';
 import 'package:pdp_wisatakuliner/util/const.dart';
 

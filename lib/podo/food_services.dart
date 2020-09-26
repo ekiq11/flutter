@@ -4,7 +4,7 @@ import 'package:pdp_wisatakuliner/util/tesfood.dart';
 class Services {
   //
   static const String url =
-      'http://belajar.junioracademy.id/api/lihat_menu.php';
+      'https://www.wisatakuapps.com/api/wisatakuApp/lihat_menu.php';
   static Future<List<Food>> getFoods() async {
     try {
       final response = await http.get(url);

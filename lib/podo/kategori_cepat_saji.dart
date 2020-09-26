@@ -4,7 +4,7 @@ import 'package:pdp_wisatakuliner/util/kategori_cepat_saji.dart';
 class CepatSajiServices {
   //
   static const String url =
-      'http://belajar.junioracademy.id/api/kategori_cepat_saji.php';
+      'https://www.wisatakuapps.com/api/wisatakuApp/kategori_cepat_saji.php';
   static Future<List<CepatSaji>> getCepatSaji() async {
     try {
       final response = await http.get(url);

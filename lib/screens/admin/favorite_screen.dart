@@ -15,7 +15,6 @@ class _DaftarMenuState extends State<DaftarMenu>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     String id = "";
 

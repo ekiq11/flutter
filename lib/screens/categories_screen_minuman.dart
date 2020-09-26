@@ -20,7 +20,6 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     MinumanServices.getMinuman().then((minuman) {

@@ -21,7 +21,6 @@ class _HomeAdminState extends State<HomeAdmin>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     Services.getFoods().then((foods) {

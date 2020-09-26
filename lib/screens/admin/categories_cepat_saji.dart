@@ -19,7 +19,6 @@ class _CategoriesCepatSajiState extends State<CategoriesCepatSaji> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     CepatSajiServices.getCepatSaji().then((cepatSaji) {

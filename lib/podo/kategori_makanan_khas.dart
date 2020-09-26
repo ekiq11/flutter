@@ -4,7 +4,7 @@ import 'package:pdp_wisatakuliner/util/kategori_makanan_khas.dart';
 class MakananKhasServices {
   //
   static const String url =
-      'http://belajar.junioracademy.id/api/kategori_makanan_khas.php';
+      'https://www.wisatakuapps.com/api/wisatakuApp/kategori_makanan_khas.php';
   static Future<List<MakananKhas>> getMakananKhas() async {
     try {
       final response = await http.get(url);

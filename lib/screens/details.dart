@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:pdp_wisatakuliner/modals/api.dart';
 import 'package:pdp_wisatakuliner/podo/tampil_komentar.dart';
-import 'package:pdp_wisatakuliner/screens/fav_details.dart';
 import 'package:pdp_wisatakuliner/screens/home.dart';
 import 'package:pdp_wisatakuliner/screens/notifications.dart';
 import 'package:pdp_wisatakuliner/util/komentar_tampil.dart';
@@ -65,7 +64,6 @@ class _ProductDetailsState extends State<ProductDetails> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     KomentarServices.getKomentar("${widget.id}").then((komentar) {

@@ -3,7 +3,7 @@ import 'package:pdp_wisatakuliner/util/list_menu.dart';
 
 class MenuServices {
   static const String url =
-      'http://belajar.junioracademy.id/api/tampil_list_menu.php?id_user=';
+      'https://www.wisatakuapps.com/api/wisatakuApp/tampil_list_menu.php?id_user=';
   static Future<List<Menu>> getList(String id) async {
     try {
       final response = await http.get(url + id);

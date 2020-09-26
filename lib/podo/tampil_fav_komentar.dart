@@ -3,7 +3,7 @@ import 'package:pdp_wisatakuliner/util/komentar_tampil.dart';
 
 class KomentarFavServices {
   static const String url =
-      'http://belajar.junioracademy.id/api/tampil_komentar.php?id_menu=';
+      'https://www.wisatakuapps.com/api/wisatakuApp/tampil_komentar.php?id_menu=';
   static Future<List<Komentar>> getKomentar(String idMenu) async {
     try {
       final response = await http.get(url + idMenu);

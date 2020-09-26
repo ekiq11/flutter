@@ -3,7 +3,7 @@ import 'package:pdp_wisatakuliner/util/kategori_favorite.dart';
 
 class FavoriteServices {
   static const String url =
-      'http://belajar.junioracademy.id/api/lihat_favorite.php?id_user=';
+      'https://www.wisatakuapps.com/api/wisatakuApp/lihat_favorite.php?id_user=';
   static Future<List<Favorite>> getFavorite(String idMenu) async {
     try {
       final response = await http.get(url + idMenu);

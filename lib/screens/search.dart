@@ -23,7 +23,7 @@ class _SearchScreenState extends State<SearchScreen>
     });
     _list.clear();
     final response =
-        await http.get("http://belajar.junioracademy.id/api/cari.php");
+        await http.get("https://www.wisatakuapps.com/api/wisatakuApp/cari.php");
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       setState(() {
@@ -53,7 +53,6 @@ class _SearchScreenState extends State<SearchScreen>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     fetchData();
   }

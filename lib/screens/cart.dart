@@ -14,7 +14,6 @@ class _CartScreenState extends State<CartScreen>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     Services.getFoods().then((foods) {

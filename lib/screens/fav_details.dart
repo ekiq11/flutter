@@ -58,7 +58,6 @@ class _ProductFavDetailsState extends State<ProductFavDetails> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     KomentarFavServices.getKomentar("${widget.idMenu}").then((komentar) {

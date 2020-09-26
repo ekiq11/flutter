@@ -4,7 +4,7 @@ import 'package:pdp_wisatakuliner/util/kategori_minuman.dart';
 class MinumanServices {
   //
   static const String url =
-      'http://belajar.junioracademy.id/api/kategori_minuman.php';
+      'https://www.wisatakuapps.com/api/wisatakuApp/kategori_minuman.php';
   static Future<List<Minuman>> getMinuman() async {
     try {
       final response = await http.get(url);

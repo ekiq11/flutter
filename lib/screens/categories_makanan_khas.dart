@@ -20,7 +20,6 @@ class _CategoriesMakananKhasState extends State<CategoriesMakananKhas> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     MakananKhasServices.getMakananKhas().then((khas) {
