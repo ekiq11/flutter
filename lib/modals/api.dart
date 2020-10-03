@@ -19,4 +19,6 @@ class BaseURL {
       "https://www.wisatakuapps.com/api/wisatakuApp/kategori.php?kategori=4";
   static String tambahMenu =
       "https://www.wisatakuapps.com/api/wisatakuApp/tambah_menu.php";
+  static String tambahLokasi =
+      "https://www.wisatakuapps.com/api/wisatakuApp/tambah_lokasi.php";
 }

@@ -16,8 +16,6 @@ class TambahData extends StatefulWidget {
 }
 
 class _TambahDataState extends State<TambahData> {
-  String teslokasi;
-
   String namaMenu, deskripsi, harga, img, idUser, idKuliner, idKategoriMenu;
   final _key = new GlobalKey<FormState>();
   File _imageFile;
@@ -35,7 +33,7 @@ class _TambahDataState extends State<TambahData> {
     }
   }
 
-  List<Lokasi> _lokasi;
+  List<Lokasi> _lokasi = [];
 
   @override
   void initState() {
@@ -89,9 +87,49 @@ class _TambahDataState extends State<TambahData> {
 
       var response = await request.send();
       if (response.statusCode > 2) {
-        print("Image Upload Berhasil");
+        Widget okButton = FlatButton(
+          child: Text("OK"),
+          onPressed: () => Navigator.pop(context),
+        );
+
+        // set up the AlertDialog
+        AlertDialog alert = AlertDialog(
+          title: Text("Berhasil"),
+          content: Text("Tambah Foto Berhasil"),
+          actions: [
+            okButton,
+          ],
+        );
+
+        // show the dialog
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return alert;
+          },
+        );
       } else {
-        print("Image gagal upload");
+        Widget okButton = FlatButton(
+          child: Text("OK"),
+          onPressed: () => Navigator.pop(context),
+        );
+
+        // set up the AlertDialog
+        AlertDialog alert = AlertDialog(
+          title: Text("Gagal"),
+          content: Text("Tambah Foto Gagal"),
+          actions: [
+            okButton,
+          ],
+        );
+
+        // show the dialog
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return alert;
+          },
+        );
       }
     } catch (e) {
       debugPrint("Error $e");
@@ -290,10 +328,17 @@ class _TambahDataState extends State<TambahData> {
               ),
               child: DropdownButton(
                   hint: Text("Pilih lokasi"),
+                  underline: Container(
+                    height: 1.0,
+                    decoration: const BoxDecoration(
+                        border: Border(
+                            bottom: BorderSide(
+                                color: Colors.transparent, width: 0.0))),
+                  ),
                   value: idKuliner,
                   items: _lokasi.map((item) {
                     return DropdownMenuItem(
-                      child: Text(item.namaTempat + " " + item.id),
+                      child: Text(item.namaTempat),
                       value: item.id,
                     );
                   }).toList(),
@@ -308,40 +353,41 @@ class _TambahDataState extends State<TambahData> {
           Card(
             elevation: 3.0,
             child: Container(
+              height: 50.0,
+              padding: EdgeInsets.all(10.0),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(
                   Radius.circular(5.0),
                 ),
               ),
-              child: TextField(
-                onChanged: (e) => idKategoriMenu = e,
-                style: TextStyle(
-                  fontSize: 15.0,
-                  color: Colors.black,
-                ),
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.all(10.0),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                    borderSide: BorderSide(
-                      color: Colors.white,
+              child: DropdownButton(
+                  hint: Text("Pilih Kategori Menu"),
+                  underline: Container(
+                    height: 1.0,
+                    decoration: const BoxDecoration(
+                        border: Border(
+                            bottom: BorderSide(
+                                color: Colors.transparent, width: 0.0))),
+                  ),
+                  value: idKategoriMenu,
+                  items: [
+                    DropdownMenuItem(
+                      child: Text("Minuman"),
+                      value: "1",
                     ),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.white,
+                    DropdownMenuItem(
+                      child: Text("Makanan Kue"),
+                      value: "2",
                     ),
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  hintText: "Kategori Menu",
-                  hintStyle: TextStyle(
-                    fontSize: 15.0,
-                    color: Colors.black,
-                  ),
-                ),
-                maxLines: 1,
-              ),
+                    DropdownMenuItem(child: Text("Cepat Saji"), value: "3"),
+                    DropdownMenuItem(child: Text("Makanan Khas"), value: "4")
+                  ],
+                  onChanged: (value) {
+                    setState(() {
+                      idKategoriMenu = value;
+                    });
+                  }),
             ),
           ),
           SizedBox(height: 30.0),
@@ -355,7 +401,13 @@ class _TambahDataState extends State<TambahData> {
                 ),
               ),
               onPressed: () {
-                MyLokasi();
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      return MyLokasi();
+                    },
+                  ),
+                );
               },
               color: Colors.blueAccent,
             ),

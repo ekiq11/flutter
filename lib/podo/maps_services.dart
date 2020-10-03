@@ -1,5 +1,5 @@
 import 'package:http/http.dart' as http;
-import 'package:pdp_wisatakuliner/util/mpas_list.dart';
+import 'package:pdp_wisatakuliner/util/maps_list.dart';
 
 class MapsServices {
   static const String url =

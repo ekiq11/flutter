@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pdp_wisatakuliner/screens/admin/home_admin.dart';
 import 'package:pdp_wisatakuliner/screens/admin/list_menu.dart';
 import 'package:pdp_wisatakuliner/screens/admin/tambah_data.dart';
-import 'package:pdp_wisatakuliner/screens/maps.dart';
+import 'package:pdp_wisatakuliner/screens/admin/maps.dart';
 import 'package:pdp_wisatakuliner/screens/notifications.dart';
 import 'package:pdp_wisatakuliner/screens/profile.dart';
 import 'package:pdp_wisatakuliner/util/const.dart';
@@ -106,7 +106,10 @@ class _MainScreenAdminState extends State<MainScreenAdmin> {
                 color: _page == 3
                     ? Theme.of(context).accentColor
                     : Theme.of(context).textTheme.caption.color,
-                onPressed: () => _pageController.jumpToPage(3),
+                onPressed: () => Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (BuildContext context) {
+                  return MapsTest();
+                })),
               ),
               IconButton(
                 icon: Icon(
@@ -116,7 +119,7 @@ class _MainScreenAdminState extends State<MainScreenAdmin> {
                 color: _page == 4
                     ? Theme.of(context).accentColor
                     : Theme.of(context).textTheme.caption.color,
-                onPressed: () => _pageController.jumpToPage(4),
+                onPressed: () => _pageController.jumpToPage(3),
               ),
               SizedBox(width: 7),
             ],

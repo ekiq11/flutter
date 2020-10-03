@@ -195,7 +195,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8.0),
                       child: Image.network(
-                        "${widget.img}",
+                        'https://www.wisatakuapps.com/api/upload/' +
+                            "${widget.img}",
                         fit: BoxFit.cover,
                       ),
                     ),
