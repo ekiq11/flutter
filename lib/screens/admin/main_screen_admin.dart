@@ -119,7 +119,7 @@ class _MainScreenAdminState extends State<MainScreenAdmin> {
                 color: _page == 4
                     ? Theme.of(context).accentColor
                     : Theme.of(context).textTheme.caption.color,
-                onPressed: () => _pageController.jumpToPage(3),
+                onPressed: () => _pageController.jumpToPage(4),
               ),
               SizedBox(width: 7),
             ],

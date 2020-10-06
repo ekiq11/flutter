@@ -4,12 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:pdp_wisatakuliner/modals/api.dart';
 import 'package:pdp_wisatakuliner/podo/tampil_komentar.dart';
 import 'package:pdp_wisatakuliner/screens/home.dart';
+import 'package:pdp_wisatakuliner/screens/main_screen.dart';
+import 'package:pdp_wisatakuliner/screens/maps_location.dart';
 import 'package:pdp_wisatakuliner/screens/notifications.dart';
 import 'package:pdp_wisatakuliner/util/komentar_tampil.dart';
 import 'package:pdp_wisatakuliner/util/const.dart';
 import 'package:pdp_wisatakuliner/widgets/badge.dart';
 import 'package:pdp_wisatakuliner/widgets/smooth_star_rating.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProductDetails extends StatefulWidget {
   final VoidCallback reload;
@@ -22,6 +25,8 @@ class ProductDetails extends StatefulWidget {
   final String deskripsi;
   final String harga;
   final String telepon;
+  final String latitude;
+  final String longitude;
   final String namaTempat;
   final String alamat;
   final String jamBuka;
@@ -44,6 +49,8 @@ class ProductDetails extends StatefulWidget {
       @required this.namaTempat,
       @required this.alamat,
       @required this.telepon,
+      this.latitude,
+      this.longitude,
       @required this.jamBuka,
       @required this.jamTutup,
       @required this.img,
@@ -56,7 +63,7 @@ class ProductDetails extends StatefulWidget {
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
-  String catie = "Makanan Cepat Saji", id = "", komentar, idMenu;
+  String catie = "Makanan Cepat Saji", id = "", komentar, idMenu, idUser;
   double jmlRating = 3.0;
   bool isFav = false;
 
@@ -70,6 +77,7 @@ class _ProductDetailsState extends State<ProductDetails> {
       setState(() {
         _komentar = komentar;
         print("${widget.namaMenu}");
+
         //  print("${widget.jmlRating}".toString());
       });
     });
@@ -105,6 +113,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                       telepon: "${widget.telepon}",
                       deskripsi: "${widget.deskripsi}",
                       namaTempat: "${widget.namaTempat}",
+                      latitude: "${widget.latitude}",
+                      longitude: "${widget.longitude}",
                       alamat: "${widget.alamat}",
                       jamBuka: "${widget.jamBuka}",
                       jamTutup: "${widget.jamTutup}",
@@ -134,6 +144,64 @@ class _ProductDetailsState extends State<ProductDetails> {
         );
       });
     }
+  }
+
+  addFav() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      id = preferences.getString("id");
+    });
+
+    final response = await http.post(BaseURL.fav, body: {
+      "idUser": id,
+      "idMenu": "${widget.id}",
+    });
+    final data = jsonDecode(response.body);
+    int value = data['value'];
+
+    if (value == 1) {
+      setState(() {
+        // set up the button
+        Widget okButton = FlatButton(
+          child: Text("OK"),
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return MainScreen();
+                },
+              ),
+            );
+          },
+        );
+
+        // set up the AlertDialog
+        AlertDialog alert = AlertDialog(
+          title: Text("Berhasil"),
+          content: Text("Berhasil di tambahkan ke Favorit."),
+          actions: [
+            okButton,
+          ],
+        );
+
+        // show the dialog
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return alert;
+          },
+        );
+      });
+    }
+  }
+
+  savePref(String latitude, String longitude, String namaTempat) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      preferences.setString("${widget.latitude}", latitude);
+      preferences.setString("${widget.longitude}", longitude);
+      preferences.setString("${widget.namaTempat}", namaTempat);
+    });
   }
 
   @override
@@ -205,7 +273,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                     right: -10.0,
                     bottom: 3.0,
                     child: RawMaterialButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        addFav();
+                      },
                       fillColor: Colors.white,
                       shape: CircleBorder(),
                       elevation: 4.0,
@@ -493,7 +563,19 @@ class _ProductDetailsState extends State<ProductDetails> {
             ),
           ),
           color: Theme.of(context).accentColor,
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return MapsTest(
+                    latitude: "${widget.latitude}",
+                    longitude: "${widget.longitude}",
+                    namaTempat: "${widget.namaTempat}",
+                  );
+                },
+              ),
+            );
+          },
         ),
       ),
     );

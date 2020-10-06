@@ -19,6 +19,8 @@ class Favorite {
     this.namaTempat,
     this.alamat,
     this.telepon,
+    this.latitude,
+    this.longitude,
     this.jamBuka,
     this.jamTutup,
     this.id,
@@ -40,6 +42,8 @@ class Favorite {
   String namaTempat;
   String alamat;
   String telepon;
+  String latitude;
+  String longitude;
   String jamBuka;
   String jamTutup;
   String id;
@@ -55,6 +59,8 @@ class Favorite {
         namaTempat: json["namaTempat"],
         alamat: json["alamat"],
         telepon: json["telepon"],
+        latitude: json["latitude"],
+        longitude: json["longitude"],
         jamBuka: json["jamBuka"],
         jamTutup: json["jamTutup"],
         id: json["id"],
@@ -71,6 +77,8 @@ class Favorite {
         "namaTempat": namaTempat,
         "alamat": alamat,
         "telepon": telepon,
+        "latitude": latitude,
+        "longitude": longitude,
         "jamBuka": jamBuka,
         "jamTutup": jamTutup,
         "id": id,

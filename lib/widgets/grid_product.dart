@@ -15,6 +15,8 @@ class GridProduct extends StatelessWidget {
   final String telepon;
   final String namaTempat;
   final String alamat;
+  final String latitude;
+  final String longitude;
   final String jamBuka;
   final String jamTutup;
   final String img;
@@ -29,6 +31,8 @@ class GridProduct extends StatelessWidget {
       this.jmlRating,
       this.jmlMenu,
       this.jmlReview,
+      this.latitude,
+      this.longitude,
       @required this.namaMenu,
       @required this.deskripsi,
       @required this.telepon,
@@ -106,7 +110,7 @@ class GridProduct extends StatelessWidget {
                   size: 10.0,
                 ),
                 Text(
-                  " $namaMenu ",
+                  " $rating ",
                   style: TextStyle(
                     fontSize: 11.0,
                   ),
@@ -132,6 +136,8 @@ class GridProduct extends StatelessWidget {
                 deskripsi: deskripsi,
                 namaTempat: namaTempat,
                 alamat: alamat,
+                latitude: latitude,
+                longitude: longitude,
                 jamBuka: jamBuka,
                 jamTutup: jamTutup,
                 img: img,

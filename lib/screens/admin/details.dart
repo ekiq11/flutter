@@ -2,11 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:pdp_wisatakuliner/modals/api.dart';
-import 'package:pdp_wisatakuliner/podo/tampil_komentar.dart';
-
 import 'package:pdp_wisatakuliner/screens/admin/home_admin.dart';
-
-import 'package:pdp_wisatakuliner/util/komentar_tampil.dart';
+import 'package:pdp_wisatakuliner/screens/admin/list_menu.dart';
 import 'package:pdp_wisatakuliner/util/const.dart';
 import 'package:pdp_wisatakuliner/widgets/badge.dart';
 import 'package:pdp_wisatakuliner/widgets/smooth_star_rating.dart';
@@ -15,41 +12,21 @@ import 'package:http/http.dart' as http;
 class ProductDetails extends StatefulWidget {
   final VoidCallback reload;
   final String id;
-  final String jmlReview;
-  final String idMenu;
-  final String jmlMenu;
   final String idUser;
   final String namaMenu;
   final String deskripsi;
   final String harga;
-  final String telepon;
-  final String namaTempat;
-  final String alamat;
-  final String jamBuka;
-  final String jamTutup;
   final String img;
-  final bool isFav;
-  final String jmlRating;
 
   ProductDetails(
       {Key key,
       this.reload,
       @required this.id,
-      this.idMenu,
-      this.jmlReview,
-      this.jmlMenu,
       @required this.idUser,
       @required this.namaMenu,
       @required this.deskripsi,
       @required this.harga,
-      @required this.namaTempat,
-      @required this.alamat,
-      @required this.telepon,
-      @required this.jamBuka,
-      @required this.jamTutup,
-      @required this.img,
-      @required this.isFav,
-      this.jmlRating})
+      @required this.img})
       : super(key: key);
 
   @override
@@ -57,31 +34,12 @@ class ProductDetails extends StatefulWidget {
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
-  String catie = "Makanan Cepat Saji", id = "", komentar, idMenu;
+  String id;
   double jmlRating = 3.0;
   bool isFav = false;
-
-  List<Komentar> _komentar;
-
-  @override
-  void initState() {
-    super.initState();
-
-    KomentarServices.getKomentar("${widget.id}").then((komentar) {
-      setState(() {
-        _komentar = komentar;
-        print("${widget.namaMenu}");
-        //  print("${widget.jmlRating}".toString());
-      });
-    });
-  }
-
-  kirimKomentar() async {
-    final response = await http.post(BaseURL.komentar, body: {
-      "komentar": komentar,
-      "rating": "$jmlRating",
-      "idUser": "${widget.idUser}",
-      "idMenu": "${widget.id}",
+  hapusData() async {
+    final response = await http.post(BaseURL.hapus, body: {
+      "id": "${widget.id}",
     });
     final data = jsonDecode(response.body);
     int value = data['value'];
@@ -95,22 +53,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (BuildContext context) {
-                  return ProductDetails(
-                      id: "${widget.id}",
-                      jmlRating: jmlRating.toString(),
-                      jmlMenu: "${widget.jmlMenu}",
-                      jmlReview: "${widget.jmlReview}",
-                      idUser: "${widget.idUser}",
-                      namaMenu: "${widget.namaMenu}",
-                      harga: "${widget.harga}",
-                      telepon: "${widget.telepon}",
-                      deskripsi: "${widget.deskripsi}",
-                      namaTempat: "${widget.namaTempat}",
-                      alamat: "${widget.alamat}",
-                      jamBuka: "${widget.jamBuka}",
-                      jamTutup: "${widget.jamTutup}",
-                      img: "${widget.img}",
-                      isFav: isFav);
+                  return HomeAdmin();
                 },
               ),
             );
@@ -119,8 +62,8 @@ class _ProductDetailsState extends State<ProductDetails> {
 
         // set up the AlertDialog
         AlertDialog alert = AlertDialog(
-          title: Text("Berhasil Terkirim"),
-          content: Text("Terimakasih, komentar terlah terkirim."),
+          title: Text("Berhasil"),
+          content: Text("Data Berhasil di Hapus."),
           actions: [
             okButton,
           ],
@@ -188,7 +131,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8.0),
                       child: Image.network(
-                        "${widget.img}",
+                        'https://www.wisatakuapps.com/api/upload/' +
+                            "${widget.img}",
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -197,14 +141,16 @@ class _ProductDetailsState extends State<ProductDetails> {
                     right: -10.0,
                     bottom: 3.0,
                     child: RawMaterialButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        hapusData();
+                      },
                       fillColor: Colors.white,
                       shape: CircleBorder(),
                       elevation: 4.0,
                       child: Padding(
                         padding: EdgeInsets.all(5),
                         child: Icon(
-                          isFav ? Icons.favorite : Icons.favorite_border,
+                          Icons.delete_forever,
                           color: Colors.red,
                           size: 17,
                         ),
@@ -289,203 +235,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                   fontWeight: FontWeight.w300,
                 ),
               ),
-              SizedBox(height: 20.0),
-              Text(
-                "Lokasi - ${widget.namaTempat}",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w800,
-                ),
-                maxLines: 2,
-              ),
-              SizedBox(height: 10.0),
-              Column(
-                children: <Widget>[
-                  Padding(padding: EdgeInsets.only(bottom: 10)),
-                  Row(
-                    children: <Widget>[
-                      Icon(
-                        Icons.location_on,
-                        size: 16,
-                      ),
-                      Padding(padding: EdgeInsets.only(right: 10)),
-                      Text(
-                        "${widget.alamat}",
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w300,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Column(
-                children: <Widget>[
-                  Padding(padding: EdgeInsets.only(bottom: 10)),
-                  Row(
-                    children: <Widget>[
-                      Icon(
-                        Icons.phone_iphone,
-                        size: 16,
-                      ),
-                      Padding(padding: EdgeInsets.only(right: 10)),
-                      Text(
-                        "${widget.telepon}",
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w300,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Column(
-                children: <Widget>[
-                  Padding(padding: EdgeInsets.only(bottom: 10)),
-                  Row(
-                    children: <Widget>[
-                      Icon(
-                        Icons.access_alarm,
-                        size: 16,
-                      ),
-                      Padding(padding: EdgeInsets.only(right: 10)),
-                      Text(
-                        "Buka (${widget.jamBuka}) - Tutup (${widget.jamTutup})",
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w300,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              SizedBox(height: 20.0),
-              Text(
-                "Review",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                ),
-                maxLines: 2,
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  SizedBox(height: 20.0),
-                  SmoothStarRating(
-                    starCount: 5,
-                    color: Constants.ratingBG,
-                    allowHalfRating: false,
-                    rating: jmlRating,
-                    size: 40.0,
-                    onRatingChanged: (value) {
-                      setState(() {
-                        jmlRating = value;
-                        print(value);
-                      });
-                    },
-                  ),
-                  Padding(padding: EdgeInsets.only(top: 10)),
-                  Text(
-                    "Berikan penilaian ${widget.namaMenu} - ${widget.namaTempat}",
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    maxLines: 2,
-                  ),
-                  Padding(padding: EdgeInsets.only(top: 20)),
-                  Column(
-                    children: <Widget>[
-                      TextField(
-                          onChanged: (e) => komentar = e,
-                          decoration: InputDecoration(
-                              hintText: "Add a comment",
-                              contentPadding: const EdgeInsets.all(
-                                20.0,
-                              ),
-                              border: InputBorder.none,
-                              suffixIcon: IconButton(
-                                  icon: Icon(Icons.send),
-                                  color: Colors.redAccent,
-                                  onPressed: () {
-                                    kirimKomentar();
-                                  }))),
-                    ],
-                  ),
-                ],
-              ),
-              ListView.builder(
-                shrinkWrap: true,
-                primary: false,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: _komentar == null ? 0 : _komentar.length,
-                itemBuilder: (BuildContext context, int index) {
-                  Komentar comment = _komentar[index];
-
-                  return ListTile(
-                    leading: CircleAvatar(
-                      radius: 25.0,
-                      backgroundImage: NetworkImage(
-                        comment.img,
-                      ),
-                    ),
-                    title: Text(comment.nama),
-                    subtitle: Column(
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            SmoothStarRating(
-                              starCount: 5,
-                              color: Constants.ratingBG,
-                              allowHalfRating: true,
-                              rating: double.parse(comment.rating),
-                              size: 15.0,
-                            ),
-                            Padding(padding: EdgeInsets.only(left: 10.0)),
-                            Text(
-                              comment.tglKomentar,
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w300,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 7.0),
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            comment.komentar,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(bottom: 10.0),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
-              SizedBox(height: 10.0),
             ],
           ),
-        ),
-      ),
-      bottomNavigationBar: Container(
-        height: 50.0,
-        child: RaisedButton(
-          child: Text(
-            "PERGI KE LOKASI",
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
-          color: Theme.of(context).accentColor,
-          onPressed: () {},
         ),
       ),
     );

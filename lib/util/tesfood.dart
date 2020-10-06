@@ -23,6 +23,8 @@ class Food {
     this.namaTempat,
     this.alamat,
     this.telepon,
+    this.latitude,
+    this.longitude,
     this.jamBuka,
     this.jamTutup,
   });
@@ -38,6 +40,8 @@ class Food {
   String namaTempat;
   String alamat;
   String telepon;
+  String latitude;
+  String longitude;
   String jamBuka;
   String jamTutup;
 
@@ -53,6 +57,8 @@ class Food {
         namaTempat: json["namaTempat"],
         alamat: json["alamat"],
         telepon: json["telepon"],
+        latitude: json["latitude"],
+        longitude: json["longitude"],
         jamBuka: json["jamBuka"],
         jamTutup: json["jamTutup"],
       );
@@ -69,6 +75,8 @@ class Food {
         "namaTempat": namaTempat,
         "alamat": alamat,
         "telepon": telepon,
+        "latitude": latitude,
+        "longitude": longitude,
         "jamBuka": jamBuka,
         "jamTutup": jamTutup,
       };

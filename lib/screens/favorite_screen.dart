@@ -78,6 +78,8 @@ class _FavoriteScreenState extends State<FavoriteScreen>
                   telepon: food.telepon,
                   namaTempat: food.namaTempat,
                   alamat: food.alamat,
+                  latitude: food.latitude,
+                  longitude: food.longitude,
                   jamBuka: food.jamBuka,
                   jamTutup: food.jamTutup,
                   isFav: true,

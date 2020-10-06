@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:pdp_wisatakuliner/modals/api.dart';
 import 'package:pdp_wisatakuliner/podo/tampil_fav_komentar.dart';
 import 'package:pdp_wisatakuliner/screens/home.dart';
+import 'package:pdp_wisatakuliner/screens/maps_location.dart';
 import 'package:pdp_wisatakuliner/screens/notifications.dart';
 import 'package:pdp_wisatakuliner/util/komentar_tampil.dart';
 import 'package:pdp_wisatakuliner/util/const.dart';
 import 'package:pdp_wisatakuliner/widgets/badge.dart';
 import 'package:pdp_wisatakuliner/widgets/smooth_star_rating.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProductFavDetails extends StatefulWidget {
   final String jmlReview;
@@ -21,6 +23,8 @@ class ProductFavDetails extends StatefulWidget {
   final String telepon;
   final String namaTempat;
   final String alamat;
+  final String latitude;
+  final String longitude;
   final String jamBuka;
   final String jamTutup;
   final String img;
@@ -32,6 +36,8 @@ class ProductFavDetails extends StatefulWidget {
       @required this.idMenu,
       @required this.jmlReview,
       this.jmlMenu,
+      this.latitude,
+      this.longitude,
       @required this.idUser,
       @required this.namaMenu,
       @required this.deskripsi,
@@ -100,6 +106,8 @@ class _ProductFavDetailsState extends State<ProductFavDetails> {
                       telepon: "${widget.telepon}",
                       deskripsi: "${widget.deskripsi}",
                       namaTempat: "${widget.namaTempat}",
+                      latitude: "${widget.latitude}",
+                      longitude: "${widget.longitude}",
                       alamat: "${widget.alamat}",
                       jamBuka: "${widget.jamBuka}",
                       jamTutup: "${widget.jamTutup}",
@@ -154,6 +162,15 @@ class _ProductFavDetailsState extends State<ProductFavDetails> {
         );
       });
     }
+  }
+
+  savePref(String latitude, String longitude, String namaTempat) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      preferences.setString("${widget.latitude}", latitude);
+      preferences.setString("${widget.longitude}", longitude);
+      preferences.setString("${widget.namaTempat}", namaTempat);
+    });
   }
 
   @override
@@ -506,7 +523,19 @@ class _ProductFavDetailsState extends State<ProductFavDetails> {
             ),
           ),
           color: Theme.of(context).accentColor,
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return MapsTest(
+                    latitude: "${widget.latitude}",
+                    longitude: "${widget.longitude}",
+                    namaTempat: "${widget.namaTempat}",
+                  );
+                },
+              ),
+            );
+          },
         ),
       ),
     );

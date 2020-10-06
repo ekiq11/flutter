@@ -3,7 +3,7 @@ import 'package:pdp_wisatakuliner/screens/details.dart';
 import 'package:pdp_wisatakuliner/util/const.dart';
 import 'package:pdp_wisatakuliner/widgets/smooth_star_rating.dart';
 
-class SliderItem extends StatelessWidget {
+class SliderItem extends StatefulWidget {
   final String id;
   final String idUser;
   final String jmlRating;
@@ -15,6 +15,8 @@ class SliderItem extends StatelessWidget {
   final String telepon;
   final String namaTempat;
   final String alamat;
+  final String latitude;
+  final String longitude;
   final String jamBuka;
   final String jamTutup;
   final String img;
@@ -29,6 +31,8 @@ class SliderItem extends StatelessWidget {
       this.jmlRating,
       this.jmlMenu,
       this.jmlReview,
+      this.latitude,
+      this.longitude,
       @required this.namaMenu,
       @required this.deskripsi,
       @required this.telepon,
@@ -44,6 +48,11 @@ class SliderItem extends StatelessWidget {
       : super(key: key);
 
   @override
+  _SliderItemState createState() => _SliderItemState();
+}
+
+class _SliderItemState extends State<SliderItem> {
+  @override
   Widget build(BuildContext context) {
     return InkWell(
       child: ListView(
@@ -58,7 +67,8 @@ class SliderItem extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
                   child: Image.network(
-                    'https://www.wisatakuapps.com/api/upload/' + "$img",
+                    'https://www.wisatakuapps.com/api/upload/' +
+                        "${widget.img}",
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -74,7 +84,7 @@ class SliderItem extends StatelessWidget {
                   child: Padding(
                     padding: EdgeInsets.all(5),
                     child: Icon(
-                      isFav ? Icons.favorite : Icons.favorite_border,
+                      widget.isFav ? Icons.favorite : Icons.favorite_border,
                       color: Colors.red,
                       size: 17,
                     ),
@@ -86,7 +96,7 @@ class SliderItem extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(bottom: 2.0, top: 8.0),
             child: Text(
-              "$namaMenu",
+              "${widget.namaMenu}",
               style: TextStyle(
                 fontSize: 20.0,
                 fontWeight: FontWeight.w900,
@@ -102,11 +112,11 @@ class SliderItem extends StatelessWidget {
                   starCount: 5,
                   color: Constants.ratingBG,
                   allowHalfRating: true,
-                  rating: rating,
+                  rating: widget.rating,
                   size: 10.0,
                 ),
                 Text(
-                  " $rating ($raters Reviews)",
+                  " ${widget.rating} (${widget.raters} Reviews)",
                   style: TextStyle(
                     fontSize: 11.0,
                   ),
@@ -121,21 +131,23 @@ class SliderItem extends StatelessWidget {
           MaterialPageRoute(
             builder: (BuildContext context) {
               return ProductDetails(
-                id: id,
-                jmlRating: jmlRating,
-                jmlMenu: jmlMenu,
-                jmlReview: jmlReview,
-                idUser: idUser,
-                namaMenu: namaMenu,
-                harga: harga,
-                telepon: telepon,
-                deskripsi: deskripsi,
-                namaTempat: namaTempat,
-                alamat: alamat,
-                jamBuka: jamBuka,
-                jamTutup: jamTutup,
-                img: img,
-                isFav: isFav,
+                id: widget.id,
+                jmlRating: widget.jmlRating,
+                jmlMenu: widget.jmlMenu,
+                jmlReview: widget.jmlReview,
+                idUser: widget.idUser,
+                namaMenu: widget.namaMenu,
+                harga: widget.harga,
+                telepon: widget.telepon,
+                deskripsi: widget.deskripsi,
+                namaTempat: widget.namaTempat,
+                alamat: widget.alamat,
+                latitude: widget.latitude,
+                longitude: widget.longitude,
+                jamBuka: widget.jamBuka,
+                jamTutup: widget.jamTutup,
+                img: widget.img,
+                isFav: widget.isFav,
               );
             },
           ),

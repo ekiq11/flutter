@@ -58,7 +58,7 @@ class _MainScreenState extends State<MainScreen> {
             Home(),
             FavoriteScreen(),
             SearchScreen(),
-            MapsTest(),
+            Map(),
             Profile(),
           ],
         ),

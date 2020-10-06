@@ -8,13 +8,13 @@ class MapsTest extends StatefulWidget {
 
 class _MapsTestState extends State<MapsTest> {
   final Set<Marker> _markers = {};
-  final LatLng _currentPosition = LatLng(-7.571443, 111.541580);
+  final LatLng _currentPosition = LatLng(-8.650979, 116.324944);
 
   @override
   void initState() {
     _markers.add(
       Marker(
-        markerId: MarkerId("-7.571443, 111.541580"),
+        markerId: MarkerId("-8.650979, 116.324944"),
         position: _currentPosition,
         icon: BitmapDescriptor.defaultMarker,
       ),
@@ -32,7 +32,7 @@ class _MapsTestState extends State<MapsTest> {
         mapType: MapType.normal,
         initialCameraPosition: CameraPosition(
           target: _currentPosition,
-          zoom: 14.0,
+          zoom: 30.0,
         ),
         markers: _markers,
       ),

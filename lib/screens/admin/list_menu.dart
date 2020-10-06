@@ -69,6 +69,7 @@ class _ListMenuState extends State<ListMenu>
 //                print(foods);
 //                print(foods.length);
                 return GridListMenu(
+                  id: food.id,
                   idUser: food.idUser,
                   img: food.img,
                   namaMenu: food.namaMenu,

@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:pdp_wisatakuliner/screens/admin/details.dart';
 
 class GridListMenu extends StatelessWidget {
+  final String id;
   final String idUser;
   final String namaMenu;
   final String deskripsi;
   final String harga;
   final String img;
 
-  GridListMenu(
-      {Key key,
-      @required this.idUser,
-      @required this.namaMenu,
-      @required this.deskripsi,
-      @required this.harga,
-      @required this.img})
-      : super(key: key);
+  GridListMenu({
+    Key key,
+    @required this.id,
+    @required this.idUser,
+    @required this.namaMenu,
+    @required this.deskripsi,
+    @required this.harga,
+    @required this.img,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +54,22 @@ class GridListMenu extends StatelessWidget {
           ),
         ],
       ),
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (BuildContext context) {
+              return ProductDetails(
+                id: id,
+                idUser: idUser,
+                namaMenu: namaMenu,
+                harga: harga,
+                deskripsi: deskripsi,
+                img: img,
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }
