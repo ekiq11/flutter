@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:pdp_wisatakuliner/modals/api.dart';
 import 'package:pdp_wisatakuliner/podo/wilayah_services.dart';
+import 'package:pdp_wisatakuliner/screens/admin/main_screen_admin.dart';
 import 'package:pdp_wisatakuliner/screens/admin/tambah_data.dart';
 import 'package:pdp_wisatakuliner/util/tampi;_wilayah.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
+import 'package:async/async.dart';
+import 'package:path/path.dart' as path;
 
 class MyLokasi extends StatefulWidget {
   @override
@@ -12,6 +17,7 @@ class MyLokasi extends StatefulWidget {
 }
 
 class _MyLokasiState extends State<MyLokasi> {
+  File _imageFile;
   String namaTempat,
       alamat,
       telepon,
@@ -64,6 +70,10 @@ class _MyLokasiState extends State<MyLokasi> {
       setState(() {
         id = preferences.getString("id");
       });
+      var stream =
+          http.ByteStream(DelegatingStream.typed(_imageFile.openRead()));
+
+      var length = await _imageFile.length();
       var uri = Uri.parse(BaseURL.tambahLokasi);
       final request = http.MultipartRequest("POST", uri);
       request.fields['namaTempat'] = namaTempat;
@@ -75,7 +85,8 @@ class _MyLokasiState extends State<MyLokasi> {
       request.fields['jamTutup'] = jamTutup;
       request.fields['idWilayah'] = idWilayah;
       request.fields['idUser'] = preferences.getString("id");
-
+      request.files.add(http.MultipartFile("image", stream, length,
+          filename: path.basename(_imageFile.path)));
       var response = await request.send();
       if (response.statusCode > 2) {
         Widget okButton = FlatButton(
@@ -83,7 +94,7 @@ class _MyLokasiState extends State<MyLokasi> {
             onPressed: () => Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (BuildContext context) {
-                      return TambahData();
+                      return MainScreenAdmin();
                     },
                   ),
                 ));
@@ -130,6 +141,14 @@ class _MyLokasiState extends State<MyLokasi> {
     } catch (e) {
       debugPrint("Error $e");
     }
+  }
+
+  pilihGallery() async {
+    var image = await ImagePicker.pickImage(
+        source: ImageSource.gallery, maxHeight: 1920.0, maxWidth: 1080.0);
+    setState(() {
+      _imageFile = image;
+    });
   }
 
   @override
@@ -475,6 +494,22 @@ class _MyLokasiState extends State<MyLokasi> {
                         idWilayah = value;
                       });
                     }),
+              ),
+            ),
+            SizedBox(height: 30.0),
+            Container(
+              height: 50.0,
+              child: RaisedButton(
+                child: Text(
+                  "Tambah Gambar".toUpperCase(),
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                onPressed: () {
+                  pilihGallery();
+                },
+                color: Colors.blueAccent,
               ),
             ),
             SizedBox(height: 30.0),

@@ -57,7 +57,7 @@ class _MainScreenAdminState extends State<MainScreenAdmin> {
             HomeAdmin(),
             ListMenu(),
             TambahData(),
-            MapsTest(),
+            MapsNew(),
             Profile(),
           ],
         ),
@@ -108,7 +108,7 @@ class _MainScreenAdminState extends State<MainScreenAdmin> {
                     : Theme.of(context).textTheme.caption.color,
                 onPressed: () => Navigator.of(context)
                     .push(MaterialPageRoute(builder: (BuildContext context) {
-                  return MapsTest();
+                  return MapsNew();
                 })),
               ),
               IconButton(

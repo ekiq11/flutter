@@ -49,22 +49,6 @@ class _WalkthroughState extends State<Walkthrough> {
       "body": "Cari makanan tradisional khas lombok yang anda inginkan.",
       "img": "assets/on1.png",
     },
-    {
-      "title": "Fast Delivery",
-      "body":
-          "Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus."
-              " Vestibulum ac diam sit amet quam vehicula elementum sed sit amet "
-              "dui. Nulla porttitor accumsan tincidunt.",
-      "img": "assets/on2.png",
-    },
-    {
-      "title": "Easy Payment",
-      "body":
-          "Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus."
-              " Vestibulum ac diam sit amet quam vehicula elementum sed sit amet "
-              "dui. Nulla porttitor accumsan tincidunt.",
-      "img": "assets/on3.png",
-    },
   ];
   @override
   Widget build(BuildContext context) {

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:pdp_wisatakuliner/screens/favorite_screen.dart';
 import 'package:pdp_wisatakuliner/screens/home.dart';
-import 'package:pdp_wisatakuliner/screens/maps.dart';
+import 'package:pdp_wisatakuliner/screens/maps_tes.dart';
 import 'package:pdp_wisatakuliner/screens/notifications.dart';
 import 'package:pdp_wisatakuliner/screens/profile.dart';
 import 'package:pdp_wisatakuliner/screens/search.dart';
@@ -58,7 +58,7 @@ class _MainScreenState extends State<MainScreen> {
             Home(),
             FavoriteScreen(),
             SearchScreen(),
-            Map(),
+            MapsNew(),
             Profile(),
           ],
         ),

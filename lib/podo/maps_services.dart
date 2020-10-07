@@ -1,13 +1,13 @@
 import 'package:http/http.dart' as http;
-import 'package:pdp_wisatakuliner/util/maps_list.dart';
+import 'package:pdp_wisatakuliner/util/jsonMaps.dart';
 
-class MapsServices {
+class MapServices {
   static const String url =
-      'https://www.wisatakuapps.com/api/wisatakuApp/lihat_menu.php';
+      'https://www.wisatakuapps.com/api/wisatakuApp/lihat_map.php';
   static Future<List<Maps>> getMaps() async {
     try {
       final response = await http.get(url);
-      print(url);
+
       if (200 == response.statusCode) {
         final List<Maps> maps = mapsFromJson(response.body);
         return maps;
