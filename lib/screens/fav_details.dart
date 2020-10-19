@@ -69,8 +69,6 @@ class _ProductFavDetailsState extends State<ProductFavDetails> {
     KomentarFavServices.getKomentar("${widget.idMenu}").then((komentar) {
       setState(() {
         _komentar = komentar;
-
-        print("${widget.jmlRating}");
         print("${widget.namaMenu}");
       });
     });

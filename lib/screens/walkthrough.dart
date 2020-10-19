@@ -45,8 +45,9 @@ class _WalkthroughState extends State<Walkthrough> {
 
   List pageInfos = [
     {
-      "title": "Makanan Tradisional",
-      "body": "Cari makanan tradisional khas lombok yang anda inginkan.",
+      "title": "Cari Makanan Khas Lombok",
+      "body":
+          "Cari tempat kuliner makanan tradisional khas lombok yang anda inginkan melalui genggaman Anda.",
       "img": "assets/on1.png",
     },
   ];

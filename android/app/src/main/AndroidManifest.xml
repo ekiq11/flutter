@@ -7,7 +7,7 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="pdp_wisatakuliner"
+        android:label="Wisata Kuliner"
         android:icon="@mipmap/ic_launcher">
         <meta-data android:name="com.google.android.geo.API_KEY"
         android:value="AIzaSyDbF0GnLcC9t8K2gsbRjxrclAnF1uaeM3k" />

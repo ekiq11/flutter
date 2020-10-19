@@ -234,3 +234,44 @@ class _ProfileState extends State<Profile> {
     );
   }
 }
+
+Widget _drawerHeader() {
+  return UserAccountsDrawerHeader(
+    currentAccountPicture: ClipOval(
+      child: Image(
+          image: AssetImage('assets/images/orang1.jpeg'), fit: BoxFit.cover),
+    ),
+    otherAccountsPictures: [
+      ClipOval(
+        child: Image(
+            image: AssetImage('assets/images/orang2.jpg'), fit: BoxFit.cover),
+      ),
+      ClipOval(
+        child: Image(
+            image: AssetImage('assets/images/orang3.jpeg'), fit: BoxFit.cover),
+      )
+    ],
+    accountName: Text('Belajar Flutter'),
+    accountEmail: Text('test@gmail.com'),
+  );
+}
+
+Widget _drawerItem({IconData icon, String text, GestureTapCallback onTap}) {
+  return ListTile(
+    title: Row(
+      children: <Widget>[
+        Icon(icon),
+        Padding(
+          padding: EdgeInsets.only(left: 25.0),
+          child: Text(
+            text,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ],
+    ),
+    onTap: onTap,
+  );
+}

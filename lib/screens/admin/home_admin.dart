@@ -7,7 +7,7 @@ import 'package:pdp_wisatakuliner/screens/categories_screen_minuman.dart';
 import 'package:pdp_wisatakuliner/screens/dishes.dart';
 import 'package:pdp_wisatakuliner/util/tesfood.dart';
 import 'package:pdp_wisatakuliner/widgets/grid_product.dart';
-import 'package:pdp_wisatakuliner/widgets/slider_item.dart';
+import 'package:pdp_wisatakuliner/widgets/slider_item_admin.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 class HomeAdmin extends StatefulWidget {
@@ -97,6 +97,8 @@ class _HomeAdminState extends State<HomeAdmin>
                       alamat: food.alamat,
                       jamBuka: food.jamBuka,
                       jamTutup: food.jamTutup,
+                      latitude: food.latitude,
+                      longitude: food.longitude,
                       img: food.img,
                       harga: food.harga,
                       deskripsi: food.deskripsi,

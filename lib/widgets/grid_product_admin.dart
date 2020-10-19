@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pdp_wisatakuliner/screens/admin/details.dart';
+import 'package:pdp_wisatakuliner/util/const.dart';
+import 'package:pdp_wisatakuliner/widgets/smooth_star_rating.dart';
 
-class GridListMenu extends StatelessWidget {
+class GridProduct extends StatelessWidget {
   final String id;
   final String idUser;
   final String jmlRating;
@@ -22,7 +24,7 @@ class GridListMenu extends StatelessWidget {
   final double rating;
   final int raters;
 
-  GridListMenu(
+  GridProduct(
       {Key key,
       @required this.id,
       @required this.idUser,
@@ -44,6 +46,7 @@ class GridListMenu extends StatelessWidget {
       this.rating,
       this.raters})
       : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -64,6 +67,24 @@ class GridListMenu extends StatelessWidget {
                   ),
                 ),
               ),
+              Positioned(
+                right: -10.0,
+                bottom: 3.0,
+                child: RawMaterialButton(
+                  onPressed: () {},
+                  fillColor: Colors.white,
+                  shape: CircleBorder(),
+                  elevation: 4.0,
+                  child: Padding(
+                    padding: EdgeInsets.all(5),
+                    child: Icon(
+                      isFav ? Icons.favorite : Icons.favorite_border,
+                      color: Colors.red,
+                      size: 17,
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
           Padding(
@@ -75,6 +96,26 @@ class GridListMenu extends StatelessWidget {
                 fontWeight: FontWeight.w900,
               ),
               maxLines: 2,
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(bottom: 5.0, top: 2.0),
+            child: Row(
+              children: <Widget>[
+                SmoothStarRating(
+                  starCount: 5,
+                  color: Constants.ratingBG,
+                  allowHalfRating: true,
+                  rating: rating,
+                  size: 10.0,
+                ),
+                Text(
+                  " $rating ",
+                  style: TextStyle(
+                    fontSize: 11.0,
+                  ),
+                ),
+              ],
             ),
           ),
         ],

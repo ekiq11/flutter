@@ -11,7 +11,7 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  String nama, username, password;
+  String nama, username, password, nohp;
   final _key = new GlobalKey<FormState>();
   bool _scurePassword = true;
   showHide() {
@@ -32,6 +32,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       "nama": nama,
       "username": username,
       "password": password,
+      "nohp": nohp,
     });
     final data = jsonDecode(response.body);
     int value = data['value'];
@@ -190,6 +191,50 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   hintText: "Usernama /  Email",
                   prefixIcon: Icon(
                     Icons.mail_outline,
+                    color: Colors.black,
+                  ),
+                  hintStyle: TextStyle(
+                    fontSize: 15.0,
+                    color: Colors.black,
+                  ),
+                ),
+                maxLines: 1,
+              ),
+            ),
+          ),
+          SizedBox(height: 10.0),
+          Card(
+            elevation: 3.0,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(5.0),
+                ),
+              ),
+              child: TextField(
+                onChanged: (e) => nohp = e,
+                style: TextStyle(
+                  fontSize: 15.0,
+                  color: Colors.black,
+                ),
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.all(10.0),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide: BorderSide(
+                      color: Colors.white,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.white,
+                    ),
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                  hintText: "No Hp",
+                  prefixIcon: Icon(
+                    Icons.phone,
                     color: Colors.black,
                   ),
                   hintStyle: TextStyle(

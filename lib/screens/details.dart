@@ -76,18 +76,16 @@ class _ProductDetailsState extends State<ProductDetails> {
     KomentarServices.getKomentar("${widget.id}").then((komentar) {
       setState(() {
         _komentar = komentar;
-        print("${widget.namaMenu}");
-
-        //  print("${widget.jmlRating}".toString());
       });
     });
   }
 
   kirimKomentar() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
     final response = await http.post(BaseURL.komentar, body: {
       "komentar": komentar,
       "rating": "$jmlRating",
-      "idUser": "${widget.idUser}",
+      "idUser": preferences.getString("id"),
       "idMenu": "${widget.id}",
     });
     final data = jsonDecode(response.body);
