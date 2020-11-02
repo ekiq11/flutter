@@ -3,7 +3,6 @@ import 'package:http/http.dart' as http;
 import 'package:pdp_wisatakuliner/modals/api.dart';
 import 'package:pdp_wisatakuliner/podo/wilayah_services.dart';
 import 'package:pdp_wisatakuliner/screens/admin/main_screen_admin.dart';
-import 'package:pdp_wisatakuliner/screens/admin/tambah_data.dart';
 import 'package:pdp_wisatakuliner/util/tampi;_wilayah.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
@@ -71,6 +70,7 @@ class _MyLokasiState extends State<MyLokasi> {
         id = preferences.getString("id");
       });
       var stream =
+          // ignore: deprecated_member_use
           http.ByteStream(DelegatingStream.typed(_imageFile.openRead()));
 
       var length = await _imageFile.length();
@@ -144,6 +144,7 @@ class _MyLokasiState extends State<MyLokasi> {
   }
 
   pilihGallery() async {
+    // ignore: deprecated_member_use
     var image = await ImagePicker.pickImage(
         source: ImageSource.gallery, maxHeight: 1920.0, maxWidth: 1080.0);
     setState(() {

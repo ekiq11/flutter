@@ -73,6 +73,7 @@ class _TambahDataState extends State<TambahData> {
       });
       var uri = Uri.parse(BaseURL.tambahMenu);
       var stream =
+          // ignore: deprecated_member_use
           http.ByteStream(DelegatingStream.typed(_imageFile.openRead()));
       final request = http.MultipartRequest("POST", uri);
       var length = await _imageFile.length();
@@ -137,6 +138,7 @@ class _TambahDataState extends State<TambahData> {
   }
 
   pilihGallery() async {
+    // ignore: deprecated_member_use
     var image = await ImagePicker.pickImage(
         source: ImageSource.gallery, maxHeight: 1920.0, maxWidth: 1080.0);
     setState(() {
@@ -145,6 +147,7 @@ class _TambahDataState extends State<TambahData> {
   }
 
   pilihCamera() async {
+    // ignore: deprecated_member_use
     var image = await ImagePicker.pickImage(
         source: ImageSource.camera, maxHeight: 1920.0, maxWidth: 1080.0);
     setState(() {

@@ -235,6 +235,7 @@ class _ProfileState extends State<Profile> {
   }
 }
 
+// ignore: unused_element
 Widget _drawerHeader() {
   return UserAccountsDrawerHeader(
     currentAccountPicture: ClipOval(
@@ -256,6 +257,7 @@ Widget _drawerHeader() {
   );
 }
 
+// ignore: unused_element
 Widget _drawerItem({IconData icon, String text, GestureTapCallback onTap}) {
   return ListTile(
     title: Row(

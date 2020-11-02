@@ -21,6 +21,7 @@ class Constants {
     scaffoldBackgroundColor: lightBG,
     appBarTheme: AppBarTheme(
       textTheme: TextTheme(
+        // ignore: deprecated_member_use
         title: TextStyle(
           color: darkBG,
           fontSize: 18.0,
@@ -42,6 +43,7 @@ class Constants {
     cursorColor: darkAccent,
     appBarTheme: AppBarTheme(
       textTheme: TextTheme(
+        // ignore: deprecated_member_use
         title: TextStyle(
           color: lightBG,
           fontSize: 18.0,
