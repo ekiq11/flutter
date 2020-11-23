@@ -142,7 +142,7 @@ class _SearchScreenState extends State<SearchScreen>
                       leading: CircleAvatar(
                         radius: 25.0,
                         backgroundImage: NetworkImage(
-                          food.img,
+                          'https://www.wisatakuapps.com/api/upload/' + food.img,
                         ),
                       ),
                       trailing: Text("Rp." + food.harga),
@@ -175,6 +175,8 @@ class _SearchScreenState extends State<SearchScreen>
                                 namaMenu: food.namaMenu,
                                 namaTempat: food.namaTempat,
                                 alamat: food.alamat,
+                                latitude: food.latitude,
+                                longitude: food.longitude,
                                 jamBuka: food.jamBuka,
                                 jamTutup: food.jamTutup,
                                 harga: food.harga,

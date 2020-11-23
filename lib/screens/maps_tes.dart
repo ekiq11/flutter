@@ -143,38 +143,34 @@ class _MapsNewState extends State<MapsNew> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Maps'),
-          centerTitle: true,
-        ),
         body: Stack(
-          children: <Widget>[
-            Container(
-              height: MediaQuery.of(context).size.height - 50.0,
-              width: MediaQuery.of(context).size.width,
-              child: GoogleMap(
-                initialCameraPosition: CameraPosition(
-                    target: LatLng(-8.646460, 116.112308), zoom: 12.0),
-                markers: Set.from(allMarkers),
-                onMapCreated: mapCreated,
-              ),
+      children: <Widget>[
+        Container(
+          height: MediaQuery.of(context).size.height - 50.0,
+          width: MediaQuery.of(context).size.width,
+          child: GoogleMap(
+            initialCameraPosition: CameraPosition(
+                target: LatLng(-8.646460, 116.112308), zoom: 12.0),
+            markers: Set.from(allMarkers),
+            onMapCreated: mapCreated,
+          ),
+        ),
+        Positioned(
+          bottom: 20.0,
+          child: Container(
+            height: 200.0,
+            width: MediaQuery.of(context).size.width,
+            child: PageView.builder(
+              controller: _pageController,
+              itemCount: _listmenu.length,
+              itemBuilder: (BuildContext context, int index) {
+                return _coffeeShopList(index);
+              },
             ),
-            Positioned(
-              bottom: 20.0,
-              child: Container(
-                height: 200.0,
-                width: MediaQuery.of(context).size.width,
-                child: PageView.builder(
-                  controller: _pageController,
-                  itemCount: _listmenu.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return _coffeeShopList(index);
-                  },
-                ),
-              ),
-            )
-          ],
-        ));
+          ),
+        )
+      ],
+    ));
   }
 
   void mapCreated(controller) {

@@ -24,6 +24,8 @@ class Search {
     this.namaTempat,
     this.alamat,
     this.telepon,
+    this.latitude,
+    this.longitude,
     this.jamBuka,
     this.jamTutup,
   });
@@ -40,6 +42,8 @@ class Search {
   String namaTempat;
   String alamat;
   String telepon;
+  String latitude;
+  String longitude;
   String jamBuka;
   String jamTutup;
 
@@ -56,6 +60,8 @@ class Search {
         namaTempat: json["namaTempat"],
         alamat: json["alamat"],
         telepon: json["telepon"],
+        latitude: json["latitude"],
+        longitude: json["longitude"],
         jamBuka: json["jamBuka"],
         jamTutup: json["jamTutup"],
       );
@@ -73,6 +79,8 @@ class Search {
         "namaTempat": namaTempat,
         "alamat": alamat,
         "telepon": telepon,
+        "latitude": latitude,
+        "longitude": longitude,
         "jamBuka": jamBuka,
         "jamTutup": jamTutup,
       };
